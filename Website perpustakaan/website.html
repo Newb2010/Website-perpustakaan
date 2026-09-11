@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libra - Perpustakaan Digital</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">L</div>
+            <div>
+                <h2>LIBRA</h2>
+                <span>Library System</span>
+            </div>
+        </div>
+
+        <nav>
+            <p class="menu-title">MENU</p>
+
+            <button class="nav-item active" data-section="dashboard">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-section="books">
+                <span>▣</span>
+                Data Buku
+            </button>
+
+            <button class="nav-item" data-section="members">
+                <span>♙</span>
+                Anggota
+            </button>
+
+            <button class="nav-item" data-section="borrow">
+                <span>↗</span>
+                Peminjaman
+            </button>
+
+            <button class="nav-item" data-section="history">
+                <span>◷</span>
+                Riwayat
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                Sistem Online
+            </div>
+
+            <p>© 2026 LIBRA</p>
+        </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div>
+                <p class="small-label">LIBRARY MANAGEMENT</p>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+
+            <div class="header-right">
+                <div class="date-box" id="currentDate"></div>
+
+                <div class="profile">
+                    <div class="avatar">A</div>
+                    <div>
+                        <strong>Admin</strong>
+                        <span>Administrator</span>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="section active-section" id="dashboard">
+
+            <div class="welcome">
+                <div>
+                    <p class="small-label">WELCOME BACK</p>
+                    <h2>Kelola perpustakaan dengan lebih mudah.</h2>
+                    <p>
+                        Pantau koleksi buku, anggota, dan aktivitas
+                        peminjaman dalam satu dashboard.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">L</div>
+            </div>
+
+            <!-- STATISTICS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">▣</div>
+                    <div>
+                        <span>Total Buku</span>
+                        <strong id="totalBooks">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">♙</div>
+                    <div>
+                        <span>Total Anggota</span>
+                        <strong id="totalMembers">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">↗</div>
+                    <div>
+                        <span>Sedang Dipinjam</span>
+                        <strong id="totalBorrowed">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span>Buku Tersedia</span>
+                        <strong id="totalAvailable">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dashboard-grid">
+
+                <!-- RECENT -->
+                <div class="panel large-panel">
+                    <div class="panel-header">
+                        <div>
+                            <p class="small-label">AKTIVITAS</p>
+                            <h3>Peminjaman Terbaru</h3>
+                        </div>
+
+                        <button class="text-button" data-section-target="history">
+                            Lihat Semua →
+                        </button>
+                    </div>
+
+                    <div id="recentBorrowings" class="table-wrapper"></div>
+                </div>
+
+                <!-- POPULAR -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <p class="small-label">KOLEKSI</p>
+                            <h3>Buku Populer</h3>
+                        </div>
+                    </div>
+
+                    <div id="popularBooks" class="popular-list"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- BOOKS -->
+        <section class="section" id="books">
+
+            <div class="section-top">
+
+                <div>
+                    <p class="small-label">LIBRARY COLLECTION</p>
+                    <h2>Data Buku</h2>
+                    <p>Kelola seluruh koleksi buku perpustakaan.</p>
+                </div>
+
+                <button class="primary-btn" id="addBookBtn">
+                    + Tambah Buku
+                </button>
+
+            </div>
+
+            <div class="toolbar">
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input
+                        type="text"
+                        id="bookSearch"
+                        placeholder="Cari judul, penulis, atau ISBN..."
+                    >
+                </div>
+
+                <select id="categoryFilter" aria-label="Filter berdasarkan kategori">
+                    <option value="all">Semua Kategori</option>
+                    <option value="Teknologi">Teknologi</option>
+                    <option value="Novel">Novel</option>
+                    <option value="Pendidikan">Pendidikan</option>
+                    <option value="Sejarah">Sejarah</option>
+                    <option value="Sains">Sains</option>
+                </select>
+
+            </div>
+
+            <div class="panel">
+                <div id="booksTable" class="table-wrapper"></div>
+            </div>
+
+        </section>
+
+        <!-- MEMBERS -->
+        <section class="section" id="members">
+
+            <div class="section-top">
+
+                <div>
+                    <p class="small-label">MEMBER MANAGEMENT</p>
+                    <h2>Data Anggota</h2>
+                    <p>Kelola data anggota perpustakaan.</p>
+                </div>
+
+                <button class="primary-btn" id="addMemberBtn">
+                    + Tambah Anggota
+                </button>
+
+            </div>
+
+            <div class="toolbar">
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input
+                        type="text"
+                        id="memberSearch"
+                        placeholder="Cari nama atau ID anggota..."
+                    >
+                </div>
+
+            </div>
+
+            <div class="panel">
+                <div id="membersTable" class="table-wrapper"></div>
+            </div>
+
+        </section>
+
+        <!-- BORROW -->
+        <section class="section" id="borrow">
+
+            <div class="section-top">
+                <div>
+                    <p class="small-label">BOOK TRANSACTION</p>
+                    <h2>Peminjaman Buku</h2>
+                    <p>Buat transaksi peminjaman buku baru.</p>
+                </div>
+            </div>
+
+            <div class="form-panel">
+
+                <form id="borrowForm">
+
+                    <div class="form-group">
+                        <label for="borrowMember">Anggota</label>
+                        <select id="borrowMember" required>
+                            <option value="">Pilih anggota</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="borrowBook">Buku</label>
+                        <select id="borrowBook" required>
+                            <option value="">Pilih buku</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="borrowDate">Tanggal Pinjam</label>
+                        <input type="date" id="borrowDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="returnDate">Batas Pengembalian</label>
+                        <input type="date" id="returnDate" required>
+                    </div>
+
+                    <button class="primary-btn" type="submit">
+                        Simpan Peminjaman
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="small-label">ACTIVE LOANS</p>
+                        <h3>Buku yang Sedang Dipinjam</h3>
+                    </div>
+                </div>
+
+                <div id="activeBorrowings" class="table-wrapper"></div>
+            </div>
+
+        </section>
+
+        <!-- HISTORY -->
+        <section class="section" id="history">
+
+            <div class="section-top">
+                <div>
+                    <p class="small-label">TRANSACTION HISTORY</p>
+                    <h2>Riwayat Peminjaman</h2>
+                    <p>Semua aktivitas peminjaman perpustakaan.</p>
+                </div>
+
+                <button class="secondary-btn" id="clearHistoryBtn">
+                    Hapus Riwayat
+                </button>
+            </div>
+
+            <div class="panel">
+                <div id="historyTable" class="table-wrapper"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- BOOK MODAL -->
+    <div class="modal" id="bookModal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <p class="small-label">BOOK DATA</p>
+                    <h2 id="bookModalTitle">Tambah Buku</h2>
+                </div>
+
+                <button class="close-modal" data-close="bookModal">×</button>
+            </div>
+
+            <form id="bookForm">
+
+                <input type="hidden" id="bookId">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="bookTitle">Judul Buku</label>
+                        <input type="text" id="bookTitle" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookAuthor">Penulis</label>
+                        <input type="text" id="bookAuthor" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookISBN">ISBN</label>
+                        <input type="text" id="bookISBN" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookCategory">Kategori</label>
+                        <select id="bookCategory" required>
+                            <option value="">Pilih kategori</option>
+                            <option value="Teknologi">Teknologi</option>
+                            <option value="Novel">Novel</option>
+                            <option value="Pendidikan">Pendidikan</option>
+                            <option value="Sejarah">Sejarah</option>
+                            <option value="Sains">Sains</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookYear">Tahun Terbit</label>
+                        <input type="number" id="bookYear" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookStock">Jumlah</label>
+                        <input type="number" id="bookStock" min="1" required>
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" data-close="bookModal">
+                        Batal
+                    </button>
+
+                    <button type="submit" class="primary-btn">
+                        Simpan Buku
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- MEMBER MODAL -->
+    <div class="modal" id="memberModal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <p class="small-label">MEMBER DATA</p>
+                    <h2>Tambah Anggota</h2>
+                </div>
+
+                <button class="close-modal" data-close="memberModal">×</button>
+            </div>
+
+            <form id="memberForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="memberId">ID Anggota</label>
+                        <input type="text" id="memberId" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberName">Nama Lengkap</label>
+                        <input type="text" id="memberName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberClass">Kelas / Jurusan</label>
+                        <input type="text" id="memberClass" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="memberPhone">No. Telepon</label>
+                        <input type="text" id="memberPhone">
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" data-close="memberModal">
+                        Batal
+                    </button>
+
+                    <button type="submit" class="primary-btn">
+                        Simpan Anggota
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
